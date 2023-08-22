@@ -25,6 +25,8 @@ import static android.org.apache.commons.codec.binary.Base64.encodeBase64String;
 
 public class SendCommands {
 
+    private static final String TAG = "SendCommands";
+
     private Thread thread = null;
     private Context context;
     private int status;
@@ -81,6 +83,8 @@ public class SendCommands {
         final StringBuilder command = new StringBuilder();
         command.append(" CLASSPATH=/data/local/tmp/scrcpy-server.jar app_process / org.las2mile.scrcpy.Server ");
         command.append(" /" + localip + " " + Long.toString(size) + " " + Long.toString(bitrate) + ";");
+
+        Log.d(TAG, "SendAdbCommands: "+command.toString());
 
         thread = new Thread(new Runnable() {
             @Override

@@ -40,7 +40,9 @@ public class VideoDecoder {
             mWorker.setRunning(false);
             mWorker = null;
             mIsConfigured.set(false);
-            mCodec.stop();
+            if (mCodec != null) {
+                mCodec.stop();
+            }
         }
     }
 

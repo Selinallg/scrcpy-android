@@ -12,6 +12,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.projection.MediaProjectionManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.SystemClock;
@@ -91,6 +93,11 @@ public class MainActivity extends Activity implements Scrcpy.ServiceCallbacks, S
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        MediaProjectionManager mMediaProjectionManage = (MediaProjectionManager)this.getSystemService("media_projection");
+        Intent captureIntent = mMediaProjectionManage.createScreenCaptureIntent();
+        startActivityForResult(captureIntent, 110);
+
         if (first_time) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             setContentView(R.layout.activity_main);
@@ -417,6 +424,13 @@ public class MainActivity extends Activity implements Scrcpy.ServiceCallbacks, S
         }
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //goLauncher();
+    }
+
 
 
     @Override
